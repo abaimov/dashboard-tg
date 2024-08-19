@@ -10,12 +10,12 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 // Преобразование данных для таблицы
-const transformData = (data, isAccountTab) => {
+const transformData = (data) => {
     return data.map(item => ({
         telegramId: item.telegramId,
         nickname: item.nickname,
         language: item.language,
-        createdAt: new Date(item.createdAt).toLocaleString(), // Преобразуем дату в строку
+        createdAt: new Date(item.createdAt).toLocaleString()
     }));
 };
 
@@ -23,7 +23,7 @@ export default function Main() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState("account"); // Состояние для активной вкладки
+    const [activeTab, setActiveTab] = useState("account");
 
     const columns = [
         {...keyColumn('telegramId', textColumn), title: 'ID', readOnly: true},
@@ -32,13 +32,11 @@ export default function Main() {
         {...keyColumn('createdAt', textColumn), title: 'Time', readOnly: true},
     ];
 
-    // Функция для загрузки данных в зависимости от активной вкладки
     const fetchData = (tab) => {
         setLoading(true);
         axios
-            .get(tab === "account"
-                ? `${process.env.NEXT_PUBLIC_URL}/api/users`
-                : `${process.env.NEXT_PUBLIC_URL}/api/block`) // Обратите внимание на правильный путь к API
+            .get(
+                `${process.env.NEXT_PUBLIC_URL}/api/users`) // Обратите внимание на правильный путь к API
             .then((response) => {
                 const transformedData = transformData(response.data, tab === "account");
                 setData(transformedData);
@@ -51,12 +49,12 @@ export default function Main() {
             });
     };
 
-    // Обработчик изменения вкладки
+
     const handleTabChange = (value) => {
         setActiveTab(value);
     };
 
-    // Загружаем данные при смене вкладки
+
     useEffect(() => {
         fetchData(activeTab);
     }, [activeTab]);
