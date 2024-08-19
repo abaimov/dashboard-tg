@@ -47,6 +47,7 @@ export default function Main() {
             .catch((err) => {
                 setError(err);
                 setLoading(false);  // Отключаем лоадер при ошибке
+                console.log("EEERRRRROR", err);
             });
     };
 
