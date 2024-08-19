@@ -10,7 +10,7 @@ datasource db {
 
 model User {
   id         Int      @id @default(autoincrement())
-  telegramId String   @unique
+  telegramId String
   nickname   String
   language   String
   createdAt  DateTime @default(now())
@@ -18,7 +18,7 @@ model User {
 
 model Blocked {
   id         Int      @id @default(autoincrement())
-  telegramId String   @unique
+  telegramId String
   nickname   String
   language   String
   createdAt  DateTime @default(now())
