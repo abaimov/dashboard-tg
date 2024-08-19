@@ -1,23 +1,13 @@
-'use client';
-
 import Main from "@/app/Main";
-import useSWR from 'swr';
+import process from "next/dist/build/webpack/loaders/resolve-url-loader/lib/postcss";
 
 
-const fetcher = async (url) =>{
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}`,{cache:'no-store'});
-    const data = await response.json();
-    return data.posts;
-}
-
-export default  function Home() {
-    const { data: posts, error } = useSWR(`/api/users`, fetcher, {
-        refreshInterval:1000
-    });
-
+export default async function Home() {
+    const data = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/users`, { next: { revalidate: 300 } });
+    const res = await data.json()
     return (
         <>
-            <Main fetchDataRevalidate={posts}/>
+            <Main users={res}/>
         </>
     );
 }
