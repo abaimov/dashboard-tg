@@ -37,8 +37,8 @@ export default function Main() {
         setLoading(true);
         axios
             .get(tab === "account"
-                ? `${process.env.NEXT_PUBLIC_URL}/api/users`
-                : `${process.env.NEXT_PUBLIC_URL}/api/block`) // Обратите внимание на правильный путь к API
+                ? `${process.env.URL}/api/users`
+                : `${process.env.URL}/api/block`) // Обратите внимание на правильный путь к API
             .then((response) => {
                 const transformedData = transformData(response.data, tab === "account");
                 setData(transformedData);
