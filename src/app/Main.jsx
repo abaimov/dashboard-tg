@@ -19,8 +19,8 @@ const transformData = (data) => {
     }));
 };
 
-export default function Main() {
-    const [data, setData] = useState([]);
+export default function Main({fetchDataRevalidate}) {
+    const [data, setData] = useState(fetchDataRevalidate);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [activeTab, setActiveTab] = useState("account");
