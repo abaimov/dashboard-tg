@@ -14,7 +14,7 @@ const transformData = (data) => {
         telegramId: item.telegramId,
         nickname: item.nickname,
         language: item.language,
-        createdAt: new Date(item.createdAt).toLocaleString() // Преобразование даты
+        createdAt: item.time
     }));
 };
 
